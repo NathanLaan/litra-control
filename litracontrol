@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+#
+# Help: Show command options.
+#
+help() {
+cat <<EOF
+Use:
+    $(basename $0) [OPTIONS]
+Options:
+    glowon    Turn the Logitech Litra Glow on.
+    glowoff   Turn the Logitech Litra Glow off.
+    glowmin   Set the Logitech Litra Glow to min brightness.
+    glowmid   Set the Logitech Litra Glow to mid brightness.
+    glowmax   Set the Logitech Litra Glow to max brightness.
+    glowwarm  Set the Logitech Litra Glow colour temp to 2700k.
+    glowcold  Set the Logitech Litra Glow colour temp to 6500k.
+EOF
+}
+
+#
+# Call hidapitester executable using options for Logitech Litra Glow.
+#
+function hid_glow() {
+  "./hidapitester" --vidpid 046D/C900 --open --length 20 --send-output $1
+}
+
+function glowoff() {
+  echo "Turning Litra Glow OFF"
+  hid_glow 0x11,0xFF,0x04,0x1C,0x00
+}
+
+function glowon() {
+  echo "Turning Litra Glow ON"
+  hid_glow 0x11,0xFF,0x04,0x1C,0x01
+}
+
+#
+# 10: 0x0a
+# 20: 0x14
+# 30: 0x1e
+# 40: 0x28
+# 50: 0x32
+# 100: 0x64 (max)
+# 125: 0x7d
+#
+# Although the Litra Glow does allow going up to 125, we
+# are artificially limiting it to 100 for now as higher
+# values seem to cause issues with the Logitech software.
+#
+function glowmin() {
+  echo "Set Litra Glow to 20"
+  hid_glow 0x11,0xFF,0x04,0x4c,0x00,0x14
+}
+function glow30() {
+  echo "Set Litra Glow to 30"
+  hid_glow 0x11,0xFF,0x04,0x4C,0x00,0x1e
+}
+function glowmid() {
+  echo "Set Litra Glow to 50"
+  hid_glow 0x11,0xFF,0x04,0x4C,0x00,0x32
+}
+function glowmax() {
+  echo "Set Litra Glow to 100"
+  hid_glow 0x11,0xFF,0x04,0x4C,0x00,0x64
+}
+
+#
+# warm: 2700K -> 0A8C -> 0x0A,0x8C
+# cold: 6500K -> 1964 -> 0x19,0x64
+#
+function glowwarm() {
+  hid_glow 0x11,0xFF,0x04,0x9C,0x0A,0x8C
+}
+function glowcold() {
+  hid_glow 0x11,0xFF,0x04,0x9C,0x19,0x64
+}
+
+#
+# Call help() and exit() with no options.
+#
+[ $# -eq 0 ] && help && exit
+
+#
+# Call functions specified in options.
+#
+for arg in "$@"
+do
+  $arg
+done
