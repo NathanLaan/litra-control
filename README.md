@@ -1,6 +1,6 @@
 # litra-control
 
-Command-line tool for controlling the Logitech Litra lights.
+Command-line tool for controlling the Logitech Litra Glow and Litra Beam lights.
 
 ## Setup
 

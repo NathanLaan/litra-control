@@ -15,14 +15,36 @@ Options:
     glowmax   Set the Logitech Litra Glow to max brightness.
     glowwarm  Set the Logitech Litra Glow colour temp to 2700k.
     glowcold  Set the Logitech Litra Glow colour temp to 6500k.
+    beamon    Turn the Logitech Litra Beam on.
+    beamoff   Turn the Logitech Litra Beam off.
+    beammin   Set the Logitech Litra Beam to min brightness.
+    beammid   Set the Logitech Litra Beam to mid brightness.
+    beammax   Set the Logitech Litra Beam to max brightness.
+    beamwarm  Set the Logitech Litra Beam colour temp to 2700k.
+    beamcold  Set the Logitech Litra Beam colour temp to 6500k.
 EOF
 }
 
 #
 # Call hidapitester executable using options for Logitech Litra Glow.
 #
+# Logitech Litra Glow
+#   Vendor ID:	0x046D
+#   Product ID:	0xC900
+#
 function hid_glow() {
   "./hidapitester" --vidpid 046D/C900 --open --length 20 --send-output $1
+}
+
+#
+# Call hidapitester executable using options for Logitech Litra Beam.
+#
+# Logitech Litra Beam
+#   Vendor ID:	0x046D
+#   Product ID:	0xC901
+# 
+function hid_beam() {
+  "./hidapitester" --vidpid 046D/C901 --open --length 20 --send-output $1
 }
 
 function glowoff() {
@@ -35,6 +57,16 @@ function glowon() {
   hid_glow 0x11,0xFF,0x04,0x1C,0x01
 }
 
+function beamoff() {
+  echo "Turning Litra Beam OFF"
+  hid_beam 0x11,0xFF,0x04,0x1C,0x00
+}
+
+function beamon() {
+  echo "Turning Litra Beam ON"
+  hid_beam 0x11,0xFF,0x04,0x1C,0x01
+}
+
 #
 # 10: 0x0a
 # 20: 0x14
@@ -44,25 +76,37 @@ function glowon() {
 # 100: 0x64 (max)
 # 125: 0x7d
 #
-# Although the Litra Glow does allow going up to 125, we
+# Although the Litra lights do allow going up to ~125, we
 # are artificially limiting it to 100 for now as higher
 # values seem to cause issues with the Logitech software.
 #
 function glowmin() {
-  echo "Set Litra Glow to 20"
   hid_glow 0x11,0xFF,0x04,0x4c,0x00,0x14
 }
 function glow30() {
-  echo "Set Litra Glow to 30"
-  hid_glow 0x11,0xFF,0x04,0x4C,0x00,0x1e
+  hid_glow 0x11,0xFF,0x04,0x4C,0x00,0x1E
 }
 function glowmid() {
-  echo "Set Litra Glow to 50"
   hid_glow 0x11,0xFF,0x04,0x4C,0x00,0x32
 }
 function glowmax() {
-  echo "Set Litra Glow to 100"
   hid_glow 0x11,0xFF,0x04,0x4C,0x00,0x64
+}
+
+#
+# Beam min: 0x1E
+#
+function beammin() {
+  hid_beam 0x11,0xFF,0x04,0x4c,0x00,0x1E
+}
+function beam40() {
+  hid_beam 0x11,0xFF,0x04,0x4C,0x00,0x28
+}
+function beammid() {
+  hid_beam 0x11,0xFF,0x04,0x4C,0x00,0x32
+}
+function beammax() {
+  hid_beam 0x11,0xFF,0x04,0x4C,0x00,0x64
 }
 
 #
@@ -74,6 +118,12 @@ function glowwarm() {
 }
 function glowcold() {
   hid_glow 0x11,0xFF,0x04,0x9C,0x19,0x64
+}
+function beamwarm() {
+  hid_beam 0x11,0xFF,0x04,0x9C,0x0A,0x8C
+}
+function beamcold() {
+  hid_beam 0x11,0xFF,0x04,0x9C,0x19,0x64
 }
 
 #
