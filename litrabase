@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+#
+# warm: 2700K -> 0A8C -> 0x0A,0x8C
+# cold: 6500K -> 1964 -> 0x19,0x64
+#
+const_on=0x11,0xFF,0x04,0x1C,0x01
+const_off=0x11,0xFF,0x04,0x1C,0x00
+const_cold=0x11,0xFF,0x04,0x9C,0x19,0x64
+const_warm=0x11,0xFF,0x04,0x9C,0x0A,0x8C
+
+#
+# Call hidapitester executable using options:
+#   $1    vid/pid
+#   #2    command
+#
+function hidapi() {
+  "./hidapitester" --vidpid $1 --open --length 20 --send-output $2
+}
+
+function off {
+  hidapi $1 $const_off
+}
+function on {
+  hidapi $1 $const_on
+}
+
+function min() {
+  hidapi $1 $2
+}
+function mid() {
+  hidapi $1 $2
+}
+function max() {
+  hidapi $1 $2
+}
+
+function cold() {
+  hidapi $1 $const_cold
+}
+function warm() {
+  hidapi $1 $const_warm
+}
+
+#
+# Call function based on option
+#
+$1 $2 $3
+# case $1 in
+#   on) on $2;;
+#   off) off $2;;
+#   min) min $2 $3;;
+#   mid) mid $2 $3;;
+#   max) max $2 $3;;
+#   cold) cold $2 $3;;
+#   warm) warm $2 $3;;
+# esac

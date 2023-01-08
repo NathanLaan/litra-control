@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+#
+# Logitech Litra Beam
+#   Vendor ID:	0x046D
+#   Product ID:	0xC901
+#
+const_litrabeam=046D/C901
+const_litrabeam_min=0x11,0xFF,0x04,0x4c,0x00,0x1E
+const_litrabeam_mid=0x11,0xFF,0x04,0x4C,0x00,0x32
+const_litrabeam_max=0x11,0xFF,0x04,0x4C,0x00,0x64
+
+#
+# Help: Show command options.
+#
+function help() {
+cat <<EOF
+Use:
+    $(basename $0) [OPTIONS]
+Options:
+    on    Turn the Logitech Litra Beam on.
+    off   Turn the Logitech Litra Beam off.
+    min   Set the Logitech Litra Beam to min brightness.
+    mid   Set the Logitech Litra Beam to mid brightness.
+    max   Set the Logitech Litra Beam to max brightness.
+    warm  Set the Logitech Litra Beam colour temp to 2700k.
+    cold  Set the Logitech Litra Beam colour temp to 6500k.
+EOF
+}
+
+function litrabasesh() {
+  "./litrabase" $1 $2 $3
+}
+
+function on() {
+  litrabasesh on $const_litrabeam
+}
+function off() {
+  litrabasesh off $const_litrabeam
+}
+
+function min() {
+  litrabasesh min $const_litrabeam $const_litrabeam_min
+}
+function mid() {
+  litrabasesh mid $const_litrabeam $const_litrabeam_mid
+}
+function max() {
+  litrabasesh max $const_litrabeam $const_litrabeam_max
+}
+
+function cold() {
+  litrabasesh cold $const_litrabeam
+}
+function warm() {
+  litrabasesh warm $const_litrabeam
+}
+
+#
+# Call help() and exit() with no options.
+#
+[ $# -eq 0 ] && help && exit
+
+#
+# Call functions specified in options.
+#
+for arg in "$@"
+do
+  $arg
+done

@@ -14,17 +14,21 @@ Command-line tool for controlling the Logitech Litra Glow and Litra Beam lights.
   cd /path/to/litra-control
   ```
 
-6. Make the `litra-control` script executable.
+6. Make the scripts executable.
 
   ```bash
-  chmod +x litra-control
+  chmod +x ./litracontrol
+  chmod +x ./litrabase
+  chmod +x ./litrabeam
+  chmod +x ./litraglow
   ```
 
 7. Run the `litra-control` script with no options to see the list of available options.
 8. Options can be chained like this:
 
   ```bash
-  litra-control glowon glowmid glowcold
+  litracontrol glowon glowmid glowcold
+  litrabeam on mid cold
   ```
 
 ## References
