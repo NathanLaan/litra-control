@@ -3,7 +3,7 @@
 #
 # Help: Show command options.
 #
-help() {
+function help() {
 cat <<EOF
 Use:
     $(basename $0) [OPTIONS]
@@ -108,6 +108,14 @@ function beammid() {
 function beammax() {
   hid_beam 0x11,0xFF,0x04,0x4C,0x00,0x64
 }
+
+#function beamlevel() {
+  #dec=$1
+  #hex=$(([##16]dec))
+  #hex=$((16#$dec))
+  #echo $hex
+  #hid_beam 0x11,0xFF,0x04,0x4C,0x00,hex
+#}
 
 #
 # warm: 2700K -> 0A8C -> 0x0A,0x8C
