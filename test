@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+function testcall() {
+  $1 $2 $3 $4
+  sleep 2 # 1 second too short for some transitions
+}
+function testbeam() {
+  testcall ./litrabeam $1 $2 $3
+}
+function testglow() {
+  testcall ./litraglow $1 $2 $3
+}
+
+
+#
+# Test each litraglow parameter.
+#
+testbeam
+testbeam on
+testbeam min
+testbeam mid
+testbeam max
+testbeam cold
+testbeam warm
+testbeam off
+
+#
+# Test multiple litraglow parameters
+#
+testbeam on min cold
+testbeam off
+
+#
+# Test each litrabeam parameter.
+#
+testglow
+testglow on
+testglow min
+testglow mid
+testglow max
+testglow cold
+testglow warm
+testglow off
+
+#
+# Test multiple litrabeam parameters
+#
+testglow on min cold
+testglow off
