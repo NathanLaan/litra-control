@@ -13,7 +13,7 @@ function testglow() {
 
 
 #
-# Test each litraglow parameter.
+# Test each testbeam parameter.
 #
 testbeam
 testbeam on
@@ -25,13 +25,13 @@ testbeam warm
 testbeam off
 
 #
-# Test multiple litraglow parameters
+# Test multiple testbeam parameters
 #
 testbeam on min cold
 testbeam off
 
 #
-# Test each litrabeam parameter.
+# Test each testglow parameter.
 #
 testglow
 testglow on
@@ -43,7 +43,7 @@ testglow warm
 testglow off
 
 #
-# Test multiple litrabeam parameters
+# Test multiple testglow parameters
 #
 testglow on min cold
 testglow off
