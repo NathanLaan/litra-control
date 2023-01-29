@@ -1,6 +1,6 @@
 # litra-control
 
-Command-line tool for controlling the Logitech Litra Glow and Litra Beam lights.
+A set of command-line tools for controlling the [Logitech Litra Glow and Litra Beam lights](https://www.logitech.com/en-us/products/lighting.html).
 
 ## Setup
 
@@ -27,9 +27,9 @@ Command-line tool for controlling the Logitech Litra Glow and Litra Beam lights.
 8. Options can be chained like this:
 
   ```bash
-  litracontrol glowon glowmid glowcold
-  litrabeam on mid cold
-  litraglow on max warm
+  ./litracontrol glowon glowmid glowcold
+  ./litrabeam on mid cold
+  ./litraglow on max warm
   ```
 
 ## References
